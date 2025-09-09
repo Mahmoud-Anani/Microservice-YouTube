@@ -1,10 +1,17 @@
-import {  Controller, Get } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+} from '@nestjs/common';
+import {
+  EventPattern,
+  MessagePattern,
+} from '@nestjs/microservices';
+
 import { AppService } from './app.service';
-import { EventPattern, MessagePattern } from '@nestjs/microservices';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
   // لود وخلاص
   // Test EndPoint
   @Get()
@@ -19,7 +26,7 @@ export class AppController {
   }
 
   // POST User => Event Pattern (Event-Driven)
-  @EventPattern({ cmd: 'CREATE_USER' })
+  @EventPattern('CREATE_USER')
   createUser(user: { name: string; email: string }) {
     this.appService.createUser(user);
   }
